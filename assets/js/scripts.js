@@ -3,8 +3,29 @@ var countdownEl = $("#countdown");
 let time = 59;
 var questionContainer = $("#question-container");
 var usedNumbers = [];
-var questions = [1, 2, 3, 4, 5];
-var answers = [1, 2, 3, 4, 5];
+let questionArray = [
+    {
+        question: 'a',
+        answer: 'aa'
+    },
+    {
+        question: 'b',
+        answer: 'bb'
+    },
+    {
+        question: 'c',
+        answer: 'cc'
+    },
+    {
+        question: 'd',
+        answer: 'dd'
+    },
+    {
+        question: 'e',
+        answer: 'ee'
+    }
+    
+]
 
 function startTimer() {
     if (time >= 0) {
@@ -26,9 +47,11 @@ function questionPicker() {
 
 function generateQuestion() {
     var questionNumber = questionPicker();
-    console.log(questions[questionNumber]);
-    console.log(answers[questionNumber]);
-    questionContainer.append("<p>Hello!</p>");
+    var questionObject = questionArray[questionNumber]
+    console.log(questionNumber)
+    console.log(questionObject)
+    console.log(usedNumbers)
+    questionContainer.append('<h2>'+questionObject.question+'</h2>');
 }
 
 start.click(function () {
