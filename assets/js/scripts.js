@@ -3,14 +3,16 @@ var countdownEl = $("#countdown");
 let time = 59;
 
 function startTimer() {
-    countdownEl.html(time);
-    time--;
-    console.log(time);
+    if (time >= 0) {
+        countdownEl.html(time);
+        time--;
+    } else {
+        return;
+    }
 }
 
 start.click(function () {
     start.remove();
 
-    setInterval(startTimer, 1000);
-    console.log(time);
+    var interval = setInterval(startTimer, 1000);
 });
