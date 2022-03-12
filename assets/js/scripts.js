@@ -15,8 +15,8 @@ let questionArray = [
         question: "question2",
         wrongAnswer1: "b",
         wrongAnswer2: "c",
-        wrongAnswer3: "d",
         correctAnswer: "a",
+        wrongAnswer3: "d",
     },
     {
         question: "question3",
@@ -40,7 +40,6 @@ let questionArray = [
         correctAnswer: "a",
     },
 ];
-var usedAnswers = [];
 
 function startTimer() {
     if (time >= 0) {
@@ -64,32 +63,11 @@ function questionPicker() {
 function generateQuestion() {
     var questionNumber = questionPicker();
     var questionObject = questionArray[questionNumber];
-    var answerArray = [questionObject.wrongAnswer1, questionObject.wrongAnswer2, questionObject.wrongAnswer3, questionObject.correctAnswer];
+
     console.log(questionNumber);
     console.log(questionObject);
     console.log(usedNumbers);
-    questionContainer.append("<h2>" + questionObject.question + "</h2><ul></ul>");
-    answerPicker(answerArray);
-}
-
-function answerPicker(answerArray) {
-    for (var i = 4; i >= 0; i--) {
-        var chosenAnswer = randomizeAnswer();
-        usedAnswers.push(chosenAnswer);
-        var printAnswer = answerArray[chosenAnswer];
-        if (chosenAnswer == "4") {
-            questionContainer.append("<li class='correct'>" + printAnswer + "</li>");
-        } else {
-            questionContainer.append("<li class='incorrect'>" + printAnswer + "</li>");
-        }
-    }
-}
-
-function randomizeAnswer() {
-    var answerSelector = Math.floor(Math.random() * 4);
-    if (usedAnswers.includes(answerSelector)) {
-        return randomizeAnswer();
-    } else return answerSelector;
+    questionContainer.append("<h2>" + questionObject.question + "</h2>");
 }
 
 start.click(function () {
