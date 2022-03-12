@@ -6,38 +6,53 @@ var usedNumbers = [];
 let questionArray = [
     {
         question: "question1",
-        wrongAnswer1: "b",
-        wrongAnswer2: "c",
-        wrongAnswer3: "d",
-        correctAnswer: "a",
+        answers: {
+            a: "aa",
+            b: "bb",
+            c: "cc",
+            d: "dd",
+        },
+        correct: "b",
     },
     {
         question: "question2",
-        wrongAnswer1: "b",
-        wrongAnswer2: "c",
-        correctAnswer: "a",
-        wrongAnswer3: "d",
+        answers: {
+            a: "aa",
+            b: "bb",
+            c: "cc",
+            d: "dd",
+        },
+        correct: "c",
     },
     {
         question: "question3",
-        wrongAnswer1: "b",
-        wrongAnswer2: "c",
-        wrongAnswer3: "d",
-        correctAnswer: "a",
+        answers: {
+            a: "aa",
+            b: "bb",
+            c: "cc",
+            d: "dd",
+        },
+        correct: "d",
     },
     {
         question: "question4",
-        wrongAnswer1: "b",
-        wrongAnswer2: "c",
-        wrongAnswer3: "d",
-        correctAnswer: "a",
+        answers: {
+            a: "aa",
+            b: "bb",
+            c: "cc",
+            d: "dd",
+        },
+        correct: "d",
     },
     {
         question: "question5",
-        wrongAnswer1: "b",
-        wrongAnswer2: "c",
-        wrongAnswer3: "d",
-        correctAnswer: "a",
+        answers: {
+            a: "aa",
+            b: "bb",
+            c: "cc",
+            d: "dd",
+        },
+        correct: "a",
     },
 ];
 
@@ -63,11 +78,28 @@ function questionPicker() {
 function generateQuestion() {
     var questionNumber = questionPicker();
     var questionObject = questionArray[questionNumber];
-
-    console.log(questionNumber);
-    console.log(questionObject);
-    console.log(usedNumbers);
-    questionContainer.append("<h2>" + questionObject.question + "</h2>");
+    questionContainer.append(
+        "<div><h2>" +
+            questionObject.question +
+            "</h2><p class='a'>" +
+            questionObject.answers.a +
+            "</p><p class='b'>" +
+            questionObject.answers.b +
+            "</p><p class='c'>" +
+            questionObject.answers.c +
+            "</p><p class='d'>" +
+            questionObject.answers.d +
+            "</p></div>"
+    );
+    questionContainer.find("p").click(function () {
+        if ($(this).attr("class") == questionObject.correct) {
+            console.log("correct!");
+            questionContainer.find("div").remove();
+            generateQuestion();
+        } else {
+            console.log("incorrect!");
+        }
+    });
 }
 
 start.click(function () {
