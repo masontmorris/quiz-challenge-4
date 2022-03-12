@@ -55,6 +55,7 @@ let questionArray = [
         correct: "a",
     },
 ];
+var score = 0;
 
 function startTimer() {
     if (time >= 0) {
@@ -76,6 +77,10 @@ function questionPicker() {
 }
 
 function generateQuestion() {
+    console.log(score);
+    if (usedNumbers.length == questionArray.length) {
+        return scoreScreen();
+    }
     var questionNumber = questionPicker();
     var questionObject = questionArray[questionNumber];
     questionContainer.append(
@@ -95,11 +100,21 @@ function generateQuestion() {
         if ($(this).attr("class") == questionObject.correct) {
             console.log("correct!");
             questionContainer.find("div").remove();
+            score++;
             generateQuestion();
         } else {
             console.log("incorrect!");
+            questionContainer.find("div").remove();
+            time -= 5;
+            countdownEl.html(time);
+            console.log(time);
+            generateQuestion();
         }
     });
+}
+
+function scoreScreen() {
+    console.log("good job!");
 }
 
 start.click(function () {
