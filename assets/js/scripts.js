@@ -61,8 +61,6 @@ function startTimer() {
     if (time >= 0) {
         countdownEl.html(time);
         time--;
-    } else if (usedNumbers.length == questionArray.length) {
-        clearInterval(interval);
     } else {
         return;
     }
