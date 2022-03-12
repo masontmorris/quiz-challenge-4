@@ -61,6 +61,8 @@ function startTimer() {
     if (time >= 0) {
         countdownEl.html(time);
         time--;
+    } else if (usedNumbers.length == questionArray.length) {
+        clearInterval(interval);
     } else {
         return;
     }
@@ -77,7 +79,7 @@ function questionPicker() {
 }
 
 function generateQuestion() {
-    console.log(score);
+    $("#score").html(score);
     if (usedNumbers.length == questionArray.length) {
         return scoreScreen();
     }
