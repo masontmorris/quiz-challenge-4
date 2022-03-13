@@ -60,11 +60,12 @@ var score = 0;
 var interval;
 
 function startTimer() {
-    if (time >= 0) {
+    if (time > 0) {
         countdownEl.html(time);
         time--;
     } else {
-        return;
+        scoreScreen();
+        clearInterval(interval);
     }
 }
 
@@ -98,7 +99,7 @@ function scoreScreen() {
             }
             let newEntry = new Entry(initialsValue, score, time);
             leaderboard.push(newEntry);
-            leaderboard.sort((a, b) => b.score - a.score);
+            leaderboard.sort((a, b) => b.score - a.score || b.time - a.time);
             localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
             loadLeaderboard(leaderboard);
         }
@@ -106,7 +107,7 @@ function scoreScreen() {
 }
 
 start.click(function () {
-    start.remove();
+    $("#start-container").remove();
 
     interval = setInterval(startTimer, 1000);
     generateQuestion();
