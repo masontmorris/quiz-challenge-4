@@ -100,7 +100,7 @@ function scoreScreen() {
             leaderboard.push(newEntry);
             leaderboard.sort((a, b) => b.score - a.score);
             localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
-            loadLeaderboard();
+            loadLeaderboard(leaderboard);
         }
     });
 }
@@ -156,7 +156,21 @@ function Entry(initials, score, time) {
     this.time = time;
 }
 
-function loadLeaderboard() {
+function loadLeaderboard(leaderboard) {
     $("#final-score").remove();
     $("#input-container").remove();
+    container.append("<div id=leaderboard-container></div>");
+    var leaderboardContainer = $("#leaderboard-container");
+    leaderboardContainer.append("<div id='initials-container' class='leaderboard-child'><ul id='initials-list' class='leaderboard-list'><li id='initials-marker'>initials</li></ul></div>");
+    for (let i = 0; i < leaderboard.length; i++) {
+        $("#initials-list").append("<li class='ldb-intl'>" + leaderboard[i].initials) + "</li>";
+    }
+    leaderboardContainer.append("<div id='score-container' class='leaderboard-child'><ul id='score-list' class='leaderboard-list'><li id='score-marker'>score</li></ul></div>");
+    for (let i = 0; i < leaderboard.length; i++) {
+        $("#score-list").append("<li class='ldb-score'>" + leaderboard[i].score) + "</li>";
+    }
+    leaderboardContainer.append("<div id='time-container' class='leaderboard-child'><ul id='time-list' class='leaderboard-list'><li id='time-marker'>time remaining</li></ul></div>");
+    for (let i = 0; i < leaderboard.length; i++) {
+        $("#time-list").append("<li class='ldb-time'>" + leaderboard[i].time) + "</li>";
+    }
 }
