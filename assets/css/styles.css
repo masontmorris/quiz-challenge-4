@@ -1,0 +1,20 @@
+body {
+    font-family: "Poppins", sans-serif;
+}
+
+.leaderboard-list {
+    list-style: none;
+    font-size: 4rem;
+    padding: 1rem 4rem 1rem 4rem;
+}
+
+.leaderboard-child {
+    flex-basis: 6rem;
+}
+
+#leaderboard-container {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: flex-end;
+}
