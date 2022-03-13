@@ -1,6 +1,7 @@
 var start = $("#start-btn");
 var countdownEl = $("#countdown");
 let time = 59;
+var container = $("#container");
 var questionContainer = $("#question-container");
 var usedNumbers = [];
 let questionArray = [
@@ -79,6 +80,11 @@ function questionPicker() {
 
 function scoreScreen() {
     console.log("good job!");
+    questionContainer.remove();
+    $("#time-and-score").remove();
+    if (score == 1) {
+        container.append("<div id='final-score'><h2>You answered " + score + " question correctly with " + time + " seconds to spare!</h2></div>");
+    } else container.append("<div id='final-score'><h2>You answered " + score + " questions correctly with " + time + " seconds to spare!</h2></div>");
 }
 
 start.click(function () {
