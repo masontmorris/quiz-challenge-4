@@ -56,6 +56,7 @@ let questionArray = [
     },
 ];
 var score = 0;
+var interval;
 
 function startTimer() {
     if (time >= 0) {
@@ -76,9 +77,21 @@ function questionPicker() {
     }
 }
 
+function scoreScreen() {
+    console.log("good job!");
+}
+
+start.click(function () {
+    start.remove();
+
+    interval = setInterval(startTimer, 1000);
+    generateQuestion();
+});
+
 function generateQuestion() {
     $("#score").html(score);
     if (usedNumbers.length == questionArray.length) {
+        clearInterval(interval);
         return scoreScreen();
     }
     var questionNumber = questionPicker();
@@ -112,14 +125,3 @@ function generateQuestion() {
         }
     });
 }
-
-function scoreScreen() {
-    console.log("good job!");
-}
-
-start.click(function () {
-    start.remove();
-
-    var interval = setInterval(startTimer, 1000);
-    generateQuestion();
-});
