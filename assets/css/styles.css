@@ -44,11 +44,39 @@ body {
 
 #question-container h2 {
     text-align: center;
+    padding-bottom: 5rem;
 }
 
 #question-container p {
-    padding-top: 10rem;
+    margin-top: 10rem;
     font-size: larger;
+    cursor: pointer;
+}
+
+#question-container p:hover {
+    color: rgba(0, 0, 0, 0.377);
+}
+
+#final-score {
+    width: 50%;
+    height: 400px;
+    display: block;
+    margin: auto;
+    text-align: center;
+}
+
+#final-score h2 {
+    position: relative;
+    top: 50%;
+}
+
+#container input {
+    display: block;
+    margin: auto;
+}
+
+#container p {
+    text-align: center;
 }
 
 #leaderboard-container {

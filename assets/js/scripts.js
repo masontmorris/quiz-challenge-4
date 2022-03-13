@@ -6,12 +6,12 @@ var questionContainer = $("#question-container");
 var usedNumbers = [];
 let questionArray = [
     {
-        question: "question1",
+        question: "What name did the Crow's ghost go by before reviving him?",
         answers: {
-            a: "aa",
-            b: "bb",
-            c: "cc",
-            d: "dd",
+            a: "Porky",
+            b: "Pulled Pork",
+            c: "Pork Pie",
+            d: "Porkchop",
         },
         correct: "b",
     },
@@ -58,6 +58,10 @@ let questionArray = [
 ];
 var score = 0;
 var interval;
+var drifter = new Audio("./assets/sounds/drifter-oof.ogg");
+var zavala = new Audio("./assets/sounds/zavala-indeed.mp3");
+drifter.volume = 0.11;
+zavala.volume = 0.2;
 
 function startTimer() {
     if (time > 0) {
@@ -85,7 +89,7 @@ function scoreScreen() {
     $("#time-and-score").remove();
     if (score == 1) container.append("<div id='final-score'><h2>You answered " + score + " question correctly with " + time + " seconds to spare!</h2></div>");
     else container.append("<div id='final-score'><h2>You answered " + score + " questions correctly with " + time + " seconds to spare!</h2></div>");
-    container.append("<div id='input-container'><label for='initial'>Enter your initials here:</label><br><input type='text' id='initials' name='initials' value='' minlength='2' maxlength='3'><input type='submit' id='submit' value='Submit'></div>");
+    container.append("<div id='input-container'><p>Enter your initials here:</p><input type='text' id='initials' name='initials' value='' minlength='2' maxlength='3'><br><input type='submit' id='submit' value='Submit'></div>");
     var submit = document.getElementById("submit");
     submit.addEventListener("click", function () {
         var initialsValue = $("#initials").val();
@@ -138,11 +142,15 @@ function generateQuestion() {
         if ($(this).attr("class") == questionObject.correct) {
             console.log("correct!");
             questionContainer.find("div").remove();
+            var zavalaPlay = zavala.play();
+            zavalaPlay;
             score++;
             generateQuestion();
         } else {
             console.log("incorrect!");
             questionContainer.find("div").remove();
+            var drifterPlay = drifter.play();
+            drifterPlay;
             time -= 5;
             countdownEl.html(time);
             console.log(time);
