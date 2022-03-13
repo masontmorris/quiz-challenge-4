@@ -84,11 +84,24 @@ function scoreScreen() {
     $("#time-and-score").remove();
     if (score == 1) container.append("<div id='final-score'><h2>You answered " + score + " question correctly with " + time + " seconds to spare!</h2></div>");
     else container.append("<div id='final-score'><h2>You answered " + score + " questions correctly with " + time + " seconds to spare!</h2></div>");
-    container.append("<label for='initial'>Enter your initials here:</label><br><input type='text' id='initials' name='initials' value=''><input type='submit' id='submit' value='Submit'>");
+    container.append("<div id='input-container'><label for='initial'>Enter your initials here:</label><br><input type='text' id='initials' name='initials' value='' minlength='2' maxlength='3'><input type='submit' id='submit' value='Submit'></div>");
     var submit = document.getElementById("submit");
     submit.addEventListener("click", function () {
         var initialsValue = $("#initials").val();
-        console.log(initialsValue);
+        if (initialsValue.length < 2) {
+            window.alert("Please enter at least 2 initials");
+            return;
+        } else {
+            var leaderboard = JSON.parse(localStorage.getItem("leaderboard"));
+            if (leaderboard === null) {
+                var leaderboard = [];
+            }
+            let newEntry = new Entry(initialsValue, score, time);
+            leaderboard.push(newEntry);
+            leaderboard.sort((a, b) => b.score - a.score);
+            localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
+            loadLeaderboard();
+        }
     });
 }
 
@@ -135,4 +148,15 @@ function generateQuestion() {
             generateQuestion();
         }
     });
+}
+
+function Entry(initials, score, time) {
+    this.initials = initials;
+    this.score = score;
+    this.time = time;
+}
+
+function loadLeaderboard() {
+    $("#final-score").remove();
+    $("#input-container").remove();
 }
