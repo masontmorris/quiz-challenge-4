@@ -6,65 +6,70 @@ var questionContainer = $("#question-container");
 var usedNumbers = [];
 let questionArray = [
     {
-        question: "question1",
+        question: "What name did the Crow's ghost go by before reviving him?",
         answers: {
-            a: "aa",
-            b: "bb",
-            c: "cc",
-            d: "dd",
+            a: "Porky",
+            b: "Pulled Pork",
+            c: "Pork Pie",
+            d: "Porkchop",
         },
         correct: "b",
     },
     {
-        question: "question2",
+        question: "What planet is the Vault of Glass located on?",
         answers: {
-            a: "aa",
-            b: "bb",
-            c: "cc",
-            d: "dd",
+            a: "Mars",
+            b: "Mercury",
+            c: "Venus",
+            d: "Nessus",
         },
         correct: "c",
     },
     {
-        question: "question3",
+        question: "Who was the first to hold the title of Queen's Wrath",
         answers: {
-            a: "aa",
-            b: "bb",
-            c: "cc",
-            d: "dd",
+            a: "Uldren Sov",
+            b: "Petra Venj",
+            c: "Mara Sov",
+            d: "Sjur Eido",
         },
         correct: "d",
     },
     {
-        question: "question4",
+        question: "What species did the Hive originate from?",
         answers: {
-            a: "aa",
-            b: "bb",
-            c: "cc",
-            d: "dd",
+            a: "Sindu",
+            b: "Eliksni",
+            c: "Ammonites",
+            d: "Krill",
         },
         correct: "d",
     },
     {
-        question: "question5",
+        question: "Which of the three classes in Destiny 2 is best?",
         answers: {
-            a: "aa",
-            b: "bb",
-            c: "cc",
-            d: "dd",
+            a: "Warlock",
+            b: "Hunter",
+            c: "Titan",
+            d: "All three classes have their own merits",
         },
         correct: "a",
     },
 ];
 var score = 0;
 var interval;
+var drifter = new Audio("./assets/sounds/drifter-oof.ogg");
+var zavala = new Audio("./assets/sounds/zavala-indeed.mp3");
+drifter.volume = 0.11;
+zavala.volume = 0.2;
 
 function startTimer() {
-    if (time >= 0) {
+    if (time > 0) {
         countdownEl.html(time);
         time--;
     } else {
-        return;
+        scoreScreen();
+        clearInterval(interval);
     }
 }
 
@@ -84,7 +89,7 @@ function scoreScreen() {
     $("#time-and-score").remove();
     if (score == 1) container.append("<div id='final-score'><h2>You answered " + score + " question correctly with " + time + " seconds to spare!</h2></div>");
     else container.append("<div id='final-score'><h2>You answered " + score + " questions correctly with " + time + " seconds to spare!</h2></div>");
-    container.append("<div id='input-container'><label for='initial'>Enter your initials here:</label><br><input type='text' id='initials' name='initials' value='' minlength='2' maxlength='3'><input type='submit' id='submit' value='Submit'></div>");
+    container.append("<div id='input-container'><p>Enter your initials here:</p><input type='text' id='initials' name='initials' value='' minlength='2' maxlength='3'><br><input type='submit' id='submit' value='Submit'></div>");
     var submit = document.getElementById("submit");
     submit.addEventListener("click", function () {
         var initialsValue = $("#initials").val();
@@ -98,7 +103,7 @@ function scoreScreen() {
             }
             let newEntry = new Entry(initialsValue, score, time);
             leaderboard.push(newEntry);
-            leaderboard.sort((a, b) => b.score - a.score);
+            leaderboard.sort((a, b) => b.score - a.score || b.time - a.time);
             localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
             loadLeaderboard(leaderboard);
         }
@@ -106,7 +111,7 @@ function scoreScreen() {
 }
 
 start.click(function () {
-    start.remove();
+    $("#start-container").remove();
 
     interval = setInterval(startTimer, 1000);
     generateQuestion();
@@ -137,11 +142,15 @@ function generateQuestion() {
         if ($(this).attr("class") == questionObject.correct) {
             console.log("correct!");
             questionContainer.find("div").remove();
+            var zavalaPlay = zavala.play();
+            zavalaPlay;
             score++;
             generateQuestion();
         } else {
             console.log("incorrect!");
             questionContainer.find("div").remove();
+            var drifterPlay = drifter.play();
+            drifterPlay;
             time -= 5;
             countdownEl.html(time);
             console.log(time);
