@@ -82,9 +82,14 @@ function scoreScreen() {
     console.log("good job!");
     questionContainer.remove();
     $("#time-and-score").remove();
-    if (score == 1) {
-        container.append("<div id='final-score'><h2>You answered " + score + " question correctly with " + time + " seconds to spare!</h2></div>");
-    } else container.append("<div id='final-score'><h2>You answered " + score + " questions correctly with " + time + " seconds to spare!</h2></div>");
+    if (score == 1) container.append("<div id='final-score'><h2>You answered " + score + " question correctly with " + time + " seconds to spare!</h2></div>");
+    else container.append("<div id='final-score'><h2>You answered " + score + " questions correctly with " + time + " seconds to spare!</h2></div>");
+    container.append("<label for='initial'>Enter your initials here:</label><br><input type='text' id='initials' name='initials' value=''><input type='submit' id='submit' value='Submit'>");
+    var submit = document.getElementById("submit");
+    submit.addEventListener("click", function () {
+        var initialsValue = $("#initials").val();
+        console.log(initialsValue);
+    });
 }
 
 start.click(function () {
