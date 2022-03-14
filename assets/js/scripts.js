@@ -26,7 +26,7 @@ let questionArray = [
         correct: "c",
     },
     {
-        question: "Who was the first to hold the title of Queen's Wrath",
+        question: "Who was the first to hold the title of Queen's Wrath?",
         answers: {
             a: "Uldren Sov",
             b: "Petra Venj",
